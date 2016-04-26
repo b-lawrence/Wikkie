@@ -1,4 +1,4 @@
-"""superlist URL Configuration
+"""wiki URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.9/topics/http/urls/
@@ -13,9 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+
 from django.conf.urls import url
 from django.contrib import admin
+import wiki.views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', wiki.views.home_page, name="home"),
+    url(r'^([a-zA-Z0-9_]+)$', wiki.views.page, name="page"),
+    url(r'^([a-zA-Z0-9_]+)/edit$', wiki.views.page_edit, name="page_edit"),
 ]
