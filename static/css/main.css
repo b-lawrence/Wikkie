@@ -1,0 +1,35 @@
+#create-wiki-container {
+  margin: 2% auto;
+  width: 50%;
+}
+
+#create-wiki-button {
+  background-color: #367588;
+  color: #ffffff;
+}
+
+#create-wiki-header {
+  color: #367588;
+}
+
+
+#page-display {
+  margin: 2% auto;
+  width: 70%;
+}
+
+#page-display-header {
+  color: #367588;
+}
+
+#actions {
+  float: right;
+}
+
+#action-list {
+  list-style-type: none;
+}
+
+#action-list li {
+  display: inline;
+}
