@@ -9,7 +9,10 @@ from .models import Page
 
 
 def home_page(request):
-    return render(request, "wiki/home.html", context={"title": "Wikkie"})
+    pages = Page.objects.all()
+    return render(request, "wiki/home.html", context={
+        "title": "Wikkie",
+        "pages": pages})
 
 
 def page(request, slug):
