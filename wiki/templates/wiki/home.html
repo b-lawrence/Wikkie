@@ -1,6 +1,14 @@
 {% extends "wiki/base.html" %}
 
 {% block content %}
-  <h1>{{ title }}</h1>
-  <a href="{% url 'page_edit' 'slug' %}">Create a new wiki page</a>
+  <div>
+    <div id="home-page-desc">
+      <h1>{{ title }}</h1>
+      <hr/>
+      <a href="{% url 'new_page' %}">Create a new wiki page</a>
+    </div>
+    <div id="recent-wikis">
+      {% include 'wiki/partials/list_pages.html' %}
+    </div>
+  </div>
 {% endblock %}
