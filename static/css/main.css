@@ -26,10 +26,25 @@
   float: right;
 }
 
-#action-list {
-  list-style-type: none;
+#home-page-desc {
+  display: inline-block;
+  width: 60%;
+  margin: 1% 0;
 }
 
-#action-list li {
+#recent-wikis {
+  width: 30%;
+  float: right;
+  display: inline-block;
+  margin: 3% 0;
+}
+
+.no-bullet {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.inline {
   display: inline;
 }
