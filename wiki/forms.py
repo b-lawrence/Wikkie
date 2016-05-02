@@ -13,3 +13,9 @@ class PageForm(forms.ModelForm):
                                             'cols': 80,
                                             'rows': 20,
                                             'class': 'form-control'})}
+
+class NewPageForm(PageForm):
+
+    class Meta(PageForm.Meta):
+        fields = ['slug', 'title', 'content']
+        

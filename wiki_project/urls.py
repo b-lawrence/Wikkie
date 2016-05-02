@@ -21,6 +21,7 @@ import wiki.views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', wiki.views.home_page, name="home"),
+    url(r'^new$', wiki.views.new_page, name="new_page"),
     url(r'^([a-zA-Z0-9_]+)$', wiki.views.page, name="page"),
     url(r'^([a-zA-Z0-9_]+)/edit$', wiki.views.page_edit, name="page_edit"),
 ]
