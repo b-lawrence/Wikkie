@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>{{ title }}</h1>
-<a href="{% url 'page' 'my_page' %}">My page</a>
-<a href="{% url 'page' 'star_trek' %}">Star trek</a>
+  <h1>{{ title }}</h1>
+  <a href="{% url 'page_edit' 'slug' %}">Create a new wiki page</a>
 {% endblock %}

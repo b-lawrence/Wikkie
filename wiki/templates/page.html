@@ -1,19 +1,26 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-{% if page %}
-<h1>{{ page_title }}</h1>
-<div>
-    {{ page_content | safe }}
-</div>
-<a href="{% url 'page_edit' slug %}">
-  <button>Edit</button>
-</a>
-{% else %}
-<div>
-  The page you requested for doesn't exist. But you can <a href="{% url 'page_edit' slug %}">create</a> it.
-</div>
-{% endif %}
-
+  <div id="page-display">
+    {% if page %}
+      <div id="page-display-header">
+        <h3>{{ page_title }}</h3>
+        <hr/>
+        <div id="actions">
+          <ul id="action-list">
+            <li><a class="wlink" href="{% url 'page_edit' slug %}">Edit</a></li>
+            <li><a class="wlink" href="{% url 'page_edit' slug %}">Share</a></li>
+          </ul>
+        </div>
+        <br>
+      </div>
+      <div>
+          {{ page_content | safe }}
+      </div>
+    {% else %}
+      <div>
+        The page you requested for doesn't exist. But you can <a href="{% url 'page_edit' slug %}">create</a> it.
+      </div>
+    {% endif %}
+  </div>
 {% endblock %}
