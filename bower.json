@@ -1,0 +1,20 @@
+{
+  "name": "wiki_project",
+  "homepage": "https://github.com/b-lawrence/Wikkie",
+  "authors": [
+    "Lawrence Olaiya <lawrence.olaiya@andela.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6"
+  }
+}
