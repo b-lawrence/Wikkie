@@ -3,12 +3,14 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from markdown import markdown
 import bleach
+
 from .forms import PageForm
 from .models import Page
 
 
 def home_page(request):
     return render(request, "home.html", context={"title": "Wikkie"})
+
 
 def page(request, slug):
     try:
@@ -18,13 +20,14 @@ def page(request, slug):
 
     allowed_tags = bleach.ALLOWED_TAGS + ['p', 'h1', 'h2', 'h3']
     page_content = bleach.clean(markdown(page.content), tags=allowed_tags) if page else None
-    page_title = page.titie if page else slug
+    page_title = page.title if page else slug
 
     return render(request, "page.html", context={
         "page": page,
         "slug": slug,
-        "title": page_title,
+        "page_title": page_title,
         "page_content": page_content})
+
 
 def page_edit(request, slug):
     try:
@@ -42,5 +45,5 @@ def page_edit(request, slug):
 
     return render(request, "edit_page.html", context={
         "slug": slug,
-        "title": page.title or page.slug,
+        "page_title": page.title or page.slug,
         "page_form": page_form})
