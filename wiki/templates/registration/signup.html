@@ -1,0 +1,18 @@
+{% extends "wiki/base.html" %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    {% for field in signup_form %}
+      <div class="fieldWrapper">
+          {{ field.errors }}
+          {{ field }}
+          <br/>
+          {% if field.help_text %}
+            <p class="help">{{ field.help_text | safe }}</p>
+          {% endif %}
+      </div>
+    {% endfor %}
+    <button type="submit">Signup</button>
+  </form>
+{% endblock %}
