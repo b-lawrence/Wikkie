@@ -10,18 +10,29 @@
   </head>
   <body>
     <div class="container">
-      {% if request.user.is_authenticated %}
-        <form method="post" action="{% url 'logout' %}">
-          {% csrf_token %}
-          <input type="hidden" name="next" value="/"/>
-          <button type="submit" class="btn btn-link">logout</button>
-        </form>
-      {% endif %}
+      <header id="header">
+        <div id="active-user">
+          {% if request.user.is_authenticated %}
+            <form method="post" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <input type="hidden" name="next" value="/"/>
+              <span>Logged in as {{ request.user }},
+                <button type="submit" class="btn btn-link trim-btn-link">logout</button>
+              </span>
+            </form>
+          {% else %}
+            <span>
+              Don't have an account yet?
+              <a href="{% url 'register' %}"> Get one!</a>
+            </span>
+          {% endif %}
+        </div>
+      </header>
       {% block content %}
       {% endblock %}
     </div>
     {% block javascript %}
-    <script src="{% static 'lib/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+      <script src="{% static 'lib/bootstrap/dist/js/bootstrap.min.js' %}"></script>
     {% endblock javascript %}
   </body>
 </html>
