@@ -17,12 +17,19 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 import wiki.views
+from wiki.forms import LoginForm
+from django.contrib.auth import views
 
 urlpatterns = [
     url(r'^', include('django.contrib.auth.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^$', wiki.views.home_page, name="home"),
     url(r'^new$', wiki.views.new_page, name="new_page"),
+    url(r'^login$',
+        views.login, {
+            'template_name': 'registration/login.html',
+            'authentication_form': LoginForm
+        }, name="login"),
     url(r'^register$', wiki.views.register_user, name="register"),
     url(r'^([\w,-]+)$', wiki.views.page, name="page"),
     url(r'^([\w,-]+)/edit$', wiki.views.page_edit, name="page_edit"),
