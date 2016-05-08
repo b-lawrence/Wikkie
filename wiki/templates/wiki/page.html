@@ -4,7 +4,7 @@
   <div id="page-display">
     {% if page %}
       <div id="page-display-header">
-        <h3>{{ page_title }}</h3>
+        <h3>{{ page.title }}</h3>
         <hr/>
         <div id="actions">
           <ul class="no-bullet">
@@ -15,7 +15,7 @@
         <br>
       </div>
       <div>
-          {{ page_content | safe }}
+          {{ page.content | safe }}
       </div>
     {% else %}
       <div>
