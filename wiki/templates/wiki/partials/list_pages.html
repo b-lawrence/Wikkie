@@ -1,4 +1,4 @@
-{% if pages.count != 0 %}
+{% if pages %}
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">Recent wikis</h3>
@@ -6,7 +6,7 @@
   <div class="panel-body">
     <ul class="no-bullet">
       {% for page in pages %}
-        <li><a href="{{ page.get_absolute_url }}"> {{ page.title }} </a></li>
+        <li><a href="{{ page.get_absolute_url }}"> {{ page.best_version.title }} </a></li>
       {% endfor %}
     </ul>
   </div>
