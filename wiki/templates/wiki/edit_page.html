@@ -3,8 +3,8 @@
 {% block content %}
   <div id="create-wiki-container">
     <div id="create-wiki-header">
-      {% if page_form.instance.pk %}
-        <h3>Edit - {{ page_title }}</h3>
+      {% if page_form.instance.pk and page.title %}
+        <h3>Edit - {{ page.title }}</h3>
       {% else %}
         <h3>Create a new wiki page.</h3>
       {% endif %}

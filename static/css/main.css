@@ -12,7 +12,6 @@
   color: #367588;
 }
 
-
 #page-display {
   margin: 2% auto;
   width: 70%;
@@ -37,6 +36,22 @@
   float: right;
   display: inline-block;
   margin: 3% 0;
+}
+
+.trim-btn-link {
+  padding: 0;
+}
+
+#active-user {
+  width: 40%;
+  float: right;
+  text-align: right;
+}
+
+#header {
+  width: 100%;
+  height: auto;
+  margin-top: 1%;
 }
 
 .no-bullet {
