@@ -64,16 +64,21 @@ def new_page(request):
 @login_required
 def page_edit(request, slug):
     try:
-        page = Page.objects.get(slug=slug).best_version
+        page = Page.objects.get(slug=slug)
+        page_version = page.best_version
     except Page.DoesNotExist:
-        page = Page(slug=slug)
+        page, page_version = None, None
 
     if request.method == 'GET':
-        page_form = forms.PageForm(instance=page)
+        page_form = forms.PageForm(instance=page_version)
     elif request.method == 'POST':
-        page_form = forms.PageForm(request.POST, instance=page)
+        page_form = forms.PageForm(request.POST)
         if page_form.is_valid():
-            page_form.save()
+            page_form_instance_on_save = page_form.save(commit=False)
+            page_form_instance_on_save.page = page or Page.objects.create(
+                slug=slug
+            )
+            page_form_instance_on_save.save()
             return redirect("page", slug)
 
     return render(request, "wiki/edit_page.html", context={
