@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
-from .models import PageVersion
+from .models import Page, PageVersion
 
 
 class PageForm(forms.ModelForm):
@@ -30,6 +30,13 @@ class NewPageForm(PageForm):
 
     class Meta(PageForm.Meta):
         fields = ['slug', 'title', 'content']
+
+    def clean_slug(self):
+        slug = self.cleaned_data['slug']
+        page_exists = Page.objects.filter(slug=slug).exists()
+        if page_exists:
+            raise forms.ValidationError("Page with this slug already exists!")
+        return slug
 
 
 class SignupForm(forms.ModelForm):
