@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm
 from .models import Page, PageVersion
 
@@ -42,7 +42,7 @@ class NewPageForm(PageForm):
 class SignupForm(forms.ModelForm):
 
     class Meta:
-        model = User
+        model = get_user_model()
         fields = ['username', 'email', 'password']
         widgets = {
             'username': forms.TextInput(attrs={
