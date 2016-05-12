@@ -4,10 +4,12 @@ from django.contrib.auth import get_user_model
 from django.test import Client
 from wiki.models import Page, PageVersion
 
+
 def _create_page(slug, page_versions):
-    page_instance = Page.objects.create(slug="testing_versions")
+    page_instance = Page.objects.create(slug=slug)
     for page in page_versions:
         PageVersion.objects.create(page=page_instance, **page)
+    return page_instance
 
 
 class ViewsTest(TestCase):
@@ -26,22 +28,23 @@ class ViewsTest(TestCase):
             'password': 'test124'
         })
 
-        pages = [
-            {
-                'slug': 'test_page_1',
-                'title': "Test page 1",
-                'content': "content of test page 1",
-                'author': user
-            },
-            {
-                'slug': 'test_page_2',
-                'title': "Test page 2",
-                'content': "content of test page 2",
-                'author': user
-            }
-        ]
-
-        _create_page('test_page_1', pages)
+        _create_page('test_page_1', [
+        {
+            'title': "Test page 1",
+            'content': "content of test page 1",
+            'author': self.user
+        }, 
+        {
+            'title': "Test page 1 version 2",
+            'content': "content of test page 1 version 2",
+            'author': self.user
+        }
+        ])
+        _create_page('test_page_2', [{
+            'title': "Test page 2",
+            'content': "content of test page 2",
+            'author': self.user
+        }])
 
     def test_homepage_contains_pages_list(self):
         response = self.c.get('/')
@@ -77,11 +80,10 @@ class ViewsTest(TestCase):
             "Page with this slug already exists!"
         )
 
-    def test_retrieves_exact_page_version(self):
-        page_versions = [
-            {
-                'title': 'Alice in wonderland',
-                'content': 'Alice plays around in nice little wonderland',
-                'author': user,
-            }
-        ]
+    def test_retrieves_exact_page_version_1(self):
+        response = self.c.get('/test_page_1/1')
+        self.assertContains(response, 'content of test page 1')
+
+    def test_retrieves_exact_page_version_2(self):
+        response = self.c.get('/test_page_1/2')
+        self.assertContains(response, 'content of test page 1 version 2')

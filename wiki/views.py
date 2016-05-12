@@ -6,7 +6,7 @@ from markdown import markdown
 import bleach
 
 from . import forms
-from .models import Page
+from .models import Page, PageVersion
 
 
 def home_page(request):
@@ -19,22 +19,25 @@ def home_page(request):
 
 def page(request, slug, version=None):
     try:
-        page = Page.objects.get(slug=slug).best_version
+        if version:
+            page_version = PageVersion.objects.get(page__slug=slug, version=version)
+        else:
+            page_version = Page.objects.get(slug=slug).best_version
     except Page.DoesNotExist:
-        page = None
+        page_version = None
 
-    if page:
+    if page_version:
         allowed_tags = bleach.ALLOWED_TAGS + ['p', 'h1', 'h2', 'h3']
         processed_page_content = bleach.clean(
-            markdown(page.content),
+            markdown(page_version.content),
             tags=allowed_tags
         )
-        page.content = processed_page_content
+        page_version.content = processed_page_content
         # TODO: Display author's name on the page decs page.
 
     return render(request, "wiki/page.html", context={
         "slug": slug,
-        "page": page
+        "page": page_version
     })
 
 
