@@ -4,13 +4,18 @@ from django.contrib.auth import get_user_model
 from django.test import Client
 from wiki.models import Page, PageVersion
 
+def _create_page(slug, page_versions):
+    page_instance = Page.objects.create(slug="testing_versions")
+    for page in page_versions:
+        PageVersion.objects.create(page=page_instance, **page)
+
 
 class ViewsTest(TestCase):
 
     def setUp(self):
-        self.c = Client()
         user_model = get_user_model()
-        user = user_model.objects.create_user(
+        self.c = Client()
+        self.user = user_model.objects.create_user(
             username="lawrence",
             email="lawrence@gmail.com",
             password="test124"
@@ -36,9 +41,7 @@ class ViewsTest(TestCase):
             }
         ]
 
-        for page in pages:
-            pg_instance = Page.objects.create(slug=page.pop('slug'))
-            PageVersion.objects.create(page=pg_instance, **page)
+        _create_page('test_page_1', pages)
 
     def test_homepage_contains_pages_list(self):
         response = self.c.get('/')
@@ -73,3 +76,12 @@ class ViewsTest(TestCase):
             "slug",
             "Page with this slug already exists!"
         )
+
+    def test_retrieves_exact_page_version(self):
+        page_versions = [
+            {
+                'title': 'Alice in wonderland',
+                'content': 'Alice plays around in nice little wonderland',
+                'author': user,
+            }
+        ]

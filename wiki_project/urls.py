@@ -32,5 +32,6 @@ urlpatterns = [
         }, name="login"),
     url(r'^register$', wiki.views.register_user, name="register"),
     url(r'^([\w,-]+)$', wiki.views.page, name="page"),
+    url(r'^([\w,-]+)/(\d+)$', wiki.views.page, name="page_version"),
     url(r'^([\w,-]+)/edit$', wiki.views.page_edit, name="page_edit"),
 ]
